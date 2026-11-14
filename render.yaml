@@ -1,0 +1,14 @@
+# Render Blueprint: create a single Docker web service from this repository.
+services:
+  - type: web
+    name: flare-x
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      # Add GEMINI_API_KEY manually in Render if optional synthesis is enabled.
+      # The no-key fallback works without any environment variables.
+      - key: PYTHONUNBUFFERED
+        value: "1"

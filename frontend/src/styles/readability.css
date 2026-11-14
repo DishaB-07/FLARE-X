@@ -1,0 +1,286 @@
+/*
+ * FLARE-X legibility pass — layered on top of the existing dark theme.
+ * Kept separate so this pass does not change the layout or scientific content.
+ * All sizes are CSS pixels; readable defaults and an optional Easy read mode.
+ */
+:root {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 16px;
+  --text: #f3f9fd;
+  --muted: #bfd0de;
+  --line: #39576b;
+}
+
+body, button, input, textarea, select {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+body { -webkit-font-smoothing: antialiased; }
+
+/* Navigation, system labels and controls */
+.brand-caption { font-size: 10px; letter-spacing: .07em; color: #bfd3df; }
+.brand-name { font-size: 22px; letter-spacing: .015em; }
+.workspace-label, .eyebrow, .hero-kicker, .data-stamp, .si-label {
+  font-size: 11px;
+  letter-spacing: .07em;
+  color: #9dd3df;
+}
+.nav-link { min-height: 46px; font-size: 14px; font-weight: 550; color: #c1d2df; }
+.nav-link:hover, .nav-link.active { color: #f3fbff; }
+.nav-link em { font-size: 11px; }
+.source-mini strong { font-size: 13px; }
+.source-mini span, .sidebar-footnote { font-size: 12px; color: #b7cbd9; line-height: 1.6; }
+.breadcrumbs, .api-pill, .user-chip { font-size: 12px; color: #c1d3e1; }
+.breadcrumbs strong { color: #f1f8fc; }
+.avatar { font-size: 11px; }
+.page-footer { font-size: 12px; line-height: 1.65; color: #b3c8d5; }
+.page-footer a { color: #a7e4ef; }
+.topbar-search { font-size: 13px; min-height: 40px; color: #e5f4fb; }
+.topbar-search kbd { font-size: 11px; }
+.topbar-right { gap: 12px; }
+
+.readability-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: none;
+  min-height: 40px;
+  padding: 8px 12px;
+  white-space: nowrap;
+  border: 1px solid #3a6175;
+  border-radius: 9px;
+  background: #143044;
+  color: #e0f1f8;
+  font-size: 13px;
+  font-weight: 650;
+}
+.readability-toggle:hover { background: #204357; border-color: #76d9e7; }
+.readability-toggle.is-on { background: #225263; color: #fff; border-color: #8be3ec; }
+.readability-toggle svg { flex: none; color: #8be7ee; }
+
+/* Consistent hierarchy and comfortable content measure */
+.page-heading h1 { font-size: clamp(29px, 3vw, 40px); letter-spacing: -.025em; line-height: 1.22; }
+.page-heading p, .hero-copy p { font-size: 15px; line-height: 1.75; color: #c7d8e3; max-width: 68ch; }
+.hero-copy h2 { font-size: clamp(32px, 3.75vw, 45px); line-height: 1.17; letter-spacing: -.03em; }
+.hero-kicker { color: #b5ebf1; }
+.hero-foot, .orbit-label { font-size: 11px; color: #c3d8e2; line-height: 1.6; }
+.hero-foot { gap: 14px; }
+.section-head h2 { font-size: 23px; line-height: 1.3; }
+.section-head, .panel-heading { align-items: center; }
+.panel-heading h3 { font-size: 17px; line-height: 1.35; color: #f0f8fb; }
+.panel-heading p { font-size: 13px; line-height: 1.65; color: #bdcfdd; }
+.primary-button, .secondary-button, .hero-button {
+  font-size: 13px;
+  line-height: 1.4;
+  min-height: 43px;
+  padding: 10px 14px;
+}
+.text-button, .notice-link, .inline-link { font-size: 13px; font-weight: 650; }
+.button-count { font-size: 11px; }
+.data-stamp { color: #b5d5df; }
+
+/* Overview and charts */
+.metric-label { font-size: 13px; line-height: 1.4; color: #d3e2eb; }
+.metric-value { font-size: 36px; line-height: 1.25; color: #f5fbfe; }
+.metric-detail { font-size: 12px; line-height: 1.6; color: #afc6d4; }
+.metric-card { min-height: 155px; }
+.legend-row { font-size: 13px; line-height: 1.6; color: #e1eaf0; }
+.legend-row strong { font-size: 14px; }
+.donut-center span { font-size: 11px; }
+.notice-panel strong { font-size: 15px; color: #f1f7fb; }
+.notice-panel p { font-size: 14px; line-height: 1.7; color: #c5d6e0; }
+.recent-item { font-size: 13px; line-height: 1.5; color: #e3edf3; }
+.launch-number { font-size: 11px; letter-spacing: .07em; }
+.launch-card strong { font-size: 18px; line-height: 1.35; }
+.launch-card > span:nth-last-child(2) { font-size: 14px; line-height: 1.6; color: #c1d3df; }
+.launch-card { min-height: 204px; }
+
+/* Explorer: no more tiny catalogue records */
+.search-field input { font-size: 15px; color: #f1f9fd; }
+.search-field input::placeholder, .assistant-compose textarea::placeholder { color: #b4c7d5; opacity: 1; }
+.filter-toggle, .filter-row select { font-size: 14px; color: #eaf5fb; }
+.filter-row label span { font-size: 12px; color: #c8d9e4; }
+.clear-filters { font-size: 13px; }
+.results-summary, .selection-label { font-size: 13px; color: #cbdce6; }
+.results-summary strong { font-size: 16px; }
+.record-id { font-size: 11px; line-height: 1.4; letter-spacing: .025em; }
+.type-tag, .topic-tag { font-size: 11px; line-height: 1.5; letter-spacing: .01em; }
+.card-title-button h3 { font-size: 17px; line-height: 1.5; color: #f0f8fc; }
+.card-excerpt { font-size: 14px; line-height: 1.75; color: #c4d6e2; }
+.completeness, .compare-check { font-size: 12px; line-height: 1.5; }
+.compare-check { min-height: 38px; padding: 7px 10px; }
+.data-footnote, .error-banner { font-size: 12px; line-height: 1.65; color: #c2d4df; }
+.investigation-card { border-color: #34536a; }
+.investigation-card:hover, .investigation-card:focus-within { border-color: #73c8d7; }
+.comparison-tray strong { font-size: 14px; }
+.comparison-tray span { font-size: 12px; color: #c4d8e3; }
+
+/* Comparison: increase table reading size; keep the existing horizontal scroll */
+.compare-count, .selected-chip { font-size: 12px; }
+.picker-record, .picker-record small { font-size: 12px; line-height: 1.55; }
+.picker-record > span:nth-child(2) { font-size: 11px; }
+.comparison-table th, .comparison-table td {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #e0eaf0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.comparison-table thead th { font-size: 12px; color: #d2e6ef; }
+.compare-title { font-size: 13px; line-height: 1.55; }
+.comparison-note, .verified-note { font-size: 12px; color: #bfd0de; line-height: 1.65; }
+
+/* Research pathways / About / record detail drawer */
+.insight-intro strong, .provenance-list strong { font-size: 15px; color: #eff9fd; }
+.insight-intro p, .provenance-list p, .about-main p { font-size: 14px; line-height: 1.8; color: #c7d8e3; }
+.pathway-overline, .pathway-count, .pathway-foot { font-size: 11px; color: #bbd1df; }
+.pathway-card h3 { font-size: 19px; line-height: 1.35; }
+.pathway-card > p { font-size: 14px; line-height: 1.7; color: #c2d4e0; }
+.pathway-records button { font-size: 13px; line-height: 1.6; }
+.about-brand span { font-size: 11px; }
+.about-facts h3 { font-size: 17px; }
+.fact-row, .fact-row strong { font-size: 13px; line-height: 1.65; }
+.prov-number { font-size: 12px; }
+.record-drawer h2 { font-size: 28px; line-height: 1.25; letter-spacing: -.025em; }
+.drawer-section p, .citation-box p { font-size: 14px; line-height: 1.8; color: #dfebf2; }
+.detail-row > span { font-size: 13px; line-height: 1.6; color: #c0d2df; }
+.detail-row strong { font-size: 13px; line-height: 1.65; color: #f2f8fb; }
+.related-buttons button, .data-note { font-size: 12px; line-height: 1.5; }
+.citation-hint { color: #c1d3df; }
+
+/* Assistant: prioritize long-form scientific reading, not decorative microcopy */
+.assistant-trust-note p, .assistant-evidence-intro { font-size: 14px; line-height: 1.75; color: #c8dae4; }
+.assistant-panel-identity strong { font-size: 15px; }
+.assistant-panel-identity span { font-size: 12px; color: #b3cbd9; }
+.assistant-ready-pill { font-size: 11px; }
+.assistant-welcome-overline { font-size: 11px; }
+.assistant-welcome h2 { font-size: clamp(24px, 2.3vw, 30px); line-height: 1.3; }
+.assistant-welcome > p { font-size: 14px; line-height: 1.8; color: #c4d5df; }
+.assistant-prompts button { font-size: 13px; line-height: 1.5; min-height: 53px; color: #e9f5fa; }
+.assistant-message-avatar { font-size: 11px; }
+.assistant-message-label { font-size: 11px; letter-spacing: .06em; color: #b3d4df; }
+.assistant-message-body > p, .assistant-answer-text p {
+  font-size: 15px;
+  line-height: 1.83;
+  color: #eff6fa;
+}
+.assistant-source-button { font-size: 13px; min-height: 40px; }
+.assistant-message-notice { font-size: 12px !important; line-height: 1.65 !important; color: #c0d0da !important; }
+.assistant-thinking, .assistant-error { font-size: 13px; }
+.assistant-compose textarea { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #f0f8fc; }
+.assistant-compose-hint, .assistant-source-hint { font-size: 11px; color: #b5c8d6; line-height: 1.6; }
+.assistant-evidence-top h2 { font-size: 20px; line-height: 1.3; }
+.assistant-evidence-type { font-size: 11px; }
+.assistant-evidence-card h3 { font-size: 16px; line-height: 1.5; }
+.assistant-evidence-excerpt > span { font-size: 11px; }
+.assistant-evidence-excerpt p { font-size: 14px; line-height: 1.72; color: #e5eff5; }
+.assistant-evidence-actions button, .assistant-evidence-actions a { font-size: 12px; min-height: 36px; }
+.assistant-evidence-empty strong { font-size: 15px; }
+.assistant-evidence-empty p, .assistant-evidence-foot { font-size: 13px; line-height: 1.7; color: #bfd1dd; }
+.assistant-structured summary { font-size: 13px; }
+.assistant-structured dt { font-size: 12px; }
+.assistant-structured dd { font-size: 13px; line-height: 1.65; }
+.connection-banner strong { font-size: 15px; }
+.connection-banner span { font-size: 13px; color: #e3c8b5; }
+.empty-state h3 { font-size: 17px; }
+.empty-state p { font-size: 14px; line-height: 1.7; }
+
+/* Optional Easy read: high-contrast text and larger source passages. */
+.app-shell.reading-mode {
+  --muted: #e0eaf3;
+  --text: #fff;
+  --line: #5e8099;
+}
+.reading-mode .nav-link { font-size: 16px; min-height: 50px; }
+.reading-mode .breadcrumbs, .reading-mode .api-pill { font-size: 13px; }
+.reading-mode .page-heading p, .reading-mode .hero-copy p,
+.reading-mode .notice-panel p, .reading-mode .about-main p,
+.reading-mode .insight-intro p, .reading-mode .provenance-list p,
+.reading-mode .drawer-section p, .reading-mode .citation-box p,
+.reading-mode .assistant-trust-note p, .reading-mode .assistant-evidence-intro,
+.reading-mode .assistant-evidence-excerpt p { font-size: 16px; color: #f2f8fc; }
+.reading-mode .card-excerpt, .reading-mode .pathway-card > p,
+.reading-mode .assistant-welcome > p, .reading-mode .launch-card > span:nth-last-child(2),
+.reading-mode .assistant-compose textarea { font-size: 16px; color: #edf7fc; }
+.reading-mode .assistant-answer-text p, .reading-mode .assistant-message-body > p { font-size: 17px; color: #fff; }
+.reading-mode .card-title-button h3, .reading-mode .pathway-card h3,
+.reading-mode .launch-card strong { font-size: 19px; }
+.reading-mode .panel-heading p, .reading-mode .metric-detail,
+.reading-mode .data-footnote, .reading-mode .assistant-evidence-foot { font-size: 14px; color: #e1edf5; }
+.reading-mode .metric-label, .reading-mode .legend-row,
+.reading-mode .filter-row select, .reading-mode .search-field input,
+.reading-mode .results-summary, .reading-mode .fact-row,
+.reading-mode .fact-row strong, .reading-mode .detail-row strong,
+.reading-mode .detail-row > span, .reading-mode .pathway-records button { font-size: 15px; color: #f0f6fb; }
+.reading-mode .comparison-table th, .reading-mode .comparison-table td { font-size: 15px; color: #fff; }
+.reading-mode .comparison-table thead th { font-size: 13px; }
+.reading-mode .assistant-prompts button, .reading-mode .assistant-source-button,
+.reading-mode .assistant-evidence-actions button, .reading-mode .assistant-evidence-actions a { font-size: 14px; }
+.reading-mode .assistant-structured dt, .reading-mode .assistant-structured dd { font-size: 14px; }
+.reading-mode .panel, .reading-mode .metric-card, .reading-mode .investigation-card,
+.reading-mode .pathway-card, .reading-mode .assistant-chat-panel,
+.reading-mode .assistant-evidence-pane { border-color: #52768d; }
+
+/* Desktop/tablet: give text room as it grows. */
+@media (min-width: 901px) {
+  .sidebar { width: 266px; }
+  .main-area { margin-left: 266px; }
+}
+@media (min-width: 681px) and (max-width: 1080px) {
+  .user-chip { display: none; }
+  .topbar-right { gap: 9px; }
+  .topbar { padding-inline: 24px; }
+}
+@media (min-width: 681px) and (max-width: 900px) {
+  .sidebar { width: 232px; }
+  .main-area { margin-left: 232px; }
+  .brand-name { font-size: 19px; }
+  .brand-caption { font-size: 9px; }
+  .topbar-search kbd { display: none; }
+  .readability-toggle span { display: none; }
+}
+@media (max-width: 980px) {
+  .launch-card { min-height: 180px; }
+}
+@media (max-width: 680px) {
+  .sidebar { width: min(300px, 90vw); }
+  .main-area { margin-left: 0; }
+  .topbar { gap: 8px; padding-inline: 14px; }
+  .topbar-right { gap: 7px; }
+  .topbar-search, .readability-toggle { min-width: 40px; min-height: 40px; padding: 8px; }
+  .readability-toggle span { display: none; }
+  .user-chip, .topbar-divider { display: none; }
+  .breadcrumbs { min-width: 0; font-size: 12px; }
+  .breadcrumbs strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .page-heading h1 { font-size: clamp(26px, 7vw, 35px); }
+  .page-heading p, .hero-copy p { font-size: 14px; line-height: 1.7; }
+  .hero-copy h2 { font-size: clamp(28px, 7.4vw, 36px); }
+  .hero-foot { font-size: 11px; }
+  .hero-kicker { font-size: 10px; }
+  .launch-card, .launch-card:last-child { min-height: 148px; }
+  .launch-card > span:nth-last-child(2) { font-size: 13px; }
+  .metric-label { font-size: 12px; }
+  .metric-detail { font-size: 11px; }
+  .metric-value { font-size: 29px; }
+  .assistant-prompts button { font-size: 13px; min-height: 52px; }
+  .assistant-compose-hint { font-size: 11px; }
+  .assistant-panel-identity strong { font-size: 14px; }
+  .assistant-panel-identity span { font-size: 11px; }
+  .assistant-ready-pill { font-size: 10px; }
+  .assistant-message-body > p, .assistant-answer-text p { font-size: 15px; }
+  .assistant-structured dl > div { grid-template-columns: 108px minmax(0,1fr); }
+  .comparison-tray span { font-size: 11px; }
+  .comparison-tray .primary-button { font-size: 12px; }
+  .reading-mode .page-heading p, .reading-mode .hero-copy p { font-size: 16px; }
+  .reading-mode .metric-label { font-size: 14px; }
+  .reading-mode .metric-detail { font-size: 12px; }
+}
+@media (max-width: 390px) {
+  .api-pill { font-size: 11px; }
+  .page-content { padding-inline: 14px; }
+  .metric-card { min-height: 145px; }
+  .launch-card > span:nth-last-child(2) { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .readability-toggle { transition: none; }
+}

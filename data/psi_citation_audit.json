@@ -1,0 +1,209 @@
+{
+  "audit_date": "2026-11-14",
+  "method": "Official NASA PSI search-indexed pages used for the six DOI-confirmed records; a second review of official NASA programme and investigation material was conducted for the remaining 18. Direct opening of other JS-rendered PSI record pages returned no searchable content and exact search-index matches could not be confirmed. Secondary sources corroborate research topics, not PSI landing-page DOIs. No raw datasets or papers were downloaded.",
+  "source": "https://psi.nasa.gov/",
+  "verified_records": {
+    "PSI-25": {
+      "id": "PSI-25",
+      "title_on_nasa_psi": "Burning and Suppression of Solids - II (BASS-II)",
+      "investigation_doi": "10.60555/4qc4-de67",
+      "landing_page_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
+      "verification": "title_and_investigation_doi_confirmed_from_official_PSI_page",
+      "checked_on": "2026-11-14",
+      "verification_scope": "Investigation title, PSI identifier, and investigation DOI only; full papers, raw datasets and individual Cite this Investigation UI links were not retrieved."
+    },
+    "PSI-69": {
+      "id": "PSI-69",
+      "title_on_nasa_psi": "Flame Extinguishment Experiment (FLEX)",
+      "investigation_doi": "10.60555/mbq8-0451",
+      "landing_page_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+      "verification": "title_and_investigation_doi_confirmed_from_official_PSI_page",
+      "checked_on": "2026-11-14",
+      "verification_scope": "Investigation title, PSI identifier, and investigation DOI only; full papers, raw datasets and individual Cite this Investigation UI links were not retrieved."
+    },
+    "PSI-98": {
+      "id": "PSI-98",
+      "title_on_nasa_psi": "Spacecraft Fire Safety Experiment-I (SAFFIRE-I)",
+      "investigation_doi": "10.60555/0t15-1z43",
+      "landing_page_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+      "verification": "title_and_investigation_doi_confirmed_from_official_PSI_page",
+      "checked_on": "2026-11-14",
+      "verification_scope": "Investigation title, PSI identifier, and investigation DOI only; full papers, raw datasets and individual Cite this Investigation UI links were not retrieved."
+    },
+    "PSI-101": {
+      "id": "PSI-101",
+      "title_on_nasa_psi": "Smoke Aerosol Measurement Experiment-Reflight (SAME-R)",
+      "investigation_doi": "10.60555/2np7-jv14",
+      "landing_page_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
+      "verification": "title_and_investigation_doi_confirmed_from_official_PSI_page",
+      "checked_on": "2026-11-14",
+      "verification_scope": "Investigation title, PSI identifier, and investigation DOI only; full papers, raw datasets and individual Cite this Investigation UI links were not retrieved."
+    },
+    "PSI-107": {
+      "id": "PSI-107",
+      "title_on_nasa_psi": "Smoke Point In Co-flow Experiment (SPICE)",
+      "investigation_doi": "10.60555/9kbh-e962",
+      "landing_page_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107",
+      "verification": "title_and_investigation_doi_confirmed_from_official_PSI_page",
+      "checked_on": "2026-11-14",
+      "verification_scope": "Official NASA PSI indexed investigation title, identifier and DOI confirmed; did not download underlying 6.47 GB data package, papers or the citation UI."
+    },
+    "PSI-62": {
+      "id": "PSI-62",
+      "title_on_nasa_psi": "Concurrent Flame Spread Modeling using Flamelet Generated Manifolds in Microgravity with Comparison to BASS Experiments using Two-Color Tomography",
+      "investigation_doi": "10.60555/e9xp-ex83",
+      "landing_page_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-62",
+      "verification": "title_and_investigation_doi_confirmed_from_official_PSI_page",
+      "checked_on": "2026-11-14",
+      "verification_scope": "Official NASA PSI indexed title, identifier and DOI confirmed; ground-based modelling investigation, not evidence of a new flight experiment; raw data not accessed."
+    }
+  },
+  "caution": "Six PSI ID/title/investigation DOI pairs verified from their official indexed investigation pages. The other 18 have supporting official NASA research/programme context only, without independently confirmed investigation landing-page DOI or citation control. Do not assume a programme page verifies a particular PSI ID/DOI. Original catalogue is unchanged.",
+  "search_page_url": "https://psi.nasa.gov/physci/repo/search?q=&data_source=psi&data_type=investigation",
+  "reviewed_remaining": {
+    "PSI-117": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://science.nasa.gov/science-research/biological-physical-sciences/collaborating-through-data-inside-the-psi-users-group/",
+      "review_note": "NASA Science specifically mentions PSI-117 and the cool-flame modelling research; the article describes data release as forthcoming at publication. Current investigation DOI and release are not independently confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-159": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/missions/station/cool-flames-created-during-a-first-for-international-space-station-research/",
+      "review_note": "NASA confirms CFI-G combustion research; this secondary article does not establish a PSI-159 landing-page DOI.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-10": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://science.nasa.gov/biological-physical/investigations/flame-design/",
+      "review_note": "NASA describes the ACME Flame Design project; this does not independently establish the PSI-10 DOI.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-60": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-nra-awarded-research-by-area/",
+      "review_note": "NASA identifies the Computational and Experimental Analysis of SPICE Data Sets award; no individual PSI-60 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-142": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-nra-awarded-research-by-area/",
+      "review_note": "NASA identifies the cool-flame counterflow research award; no individual PSI-142 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-115": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-nra-awarded-research-by-area/",
+      "review_note": "NASA identifies the SAME-data smoke-modelling research award; no individual PSI-115 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-39": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists the Cool Flames Investigation (CFI) programme; no individual PSI-39 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-102": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists SAME smoke aerosol research; no individual PSI-102 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-106": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists SLICE combustion investigation; no individual PSI-106 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-99": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists SAFFIRE-II; the independently verified PSI-98 page references PSI-99 as related, but its own DOI is not confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-100": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists SAFFIRE-III; the independently verified PSI-98 page references PSI-100 as related, but its own DOI is not confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-21": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists ACME Coflow Laminar Diffusion Flame; no individual PSI-21 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-20": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists ACME Burning Rate Emulator; no individual PSI-20 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-68": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists FLEX-2; no individual PSI-68 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-22": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists ACME E-FIELD Flames; no individual PSI-22 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-23": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists ACME s-Flames; no individual PSI-23 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-26": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists BASS, and the confirmed PSI-25 page cross-references PSI-26; its own DOI is not independently confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    },
+    "PSI-47": {
+      "status": "nasa_program_context_only",
+      "official_nasa_source_url": "https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/",
+      "review_note": "NASA lists DAFT/DAFT-2; no individual PSI-47 investigation DOI is confirmed.",
+      "confirmed_investigation_doi": null,
+      "landing_page_individually_verified": false,
+      "reviewed_on": "2026-11-14"
+    }
+  }
+}

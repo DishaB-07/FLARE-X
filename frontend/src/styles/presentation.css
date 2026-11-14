@@ -1,0 +1,209 @@
+/* Phase 5 — presentation refinements. The underlying FLARE-X layout and data remain unchanged. */
+:root {
+  --fx-ink: #f0f8ff;
+  --fx-soft: #bfd5e2;
+  --fx-accent: #81e1ed;
+  --fx-elevation: 0 18px 55px rgba(0, 7, 16, .28);
+}
+
+/* Clear keyboard states and restrained tactile depth. */
+:where(button, a, input, textarea, select):focus-visible {
+  outline: 2px solid #82e1f3;
+  outline-offset: 3px;
+}
+:where(.investigation-card, .metric-card, .pathway-card, .panel, .assistant-evidence-card) {
+  transition: transform .25s cubic-bezier(.2,.65,.3,1), border-color .2s ease, box-shadow .25s ease;
+}
+.investigation-card {
+  position: relative;
+  transform-style: preserve-3d;
+  background-image: radial-gradient(circle at 95% 0%, rgba(91,212,230,.055), transparent 43%);
+}
+.investigation-card:hover, .investigation-card:focus-within {
+  transform: perspective(1000px) rotateX(.7deg) translateY(-4px);
+  box-shadow: var(--fx-elevation), 0 0 0 1px rgba(118,214,228,.10);
+}
+.metric-card:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(0,0,0,.17); }
+.pathway-card:hover { transform: translateY(-4px); box-shadow: var(--fx-elevation); }
+.launch-card, .intel-overview-cta, .topbar-search { transition-duration: .23s; }
+/* Reuse the dashboard's original navy/cyan look; avoid gratuitous spinning effects. */
+
+/* The investigation dialog is portaled to body, preventing sidebar stacking and blur issues. */
+.record-modal-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:clamp(12px,3.6vh,40px) clamp(12px,3vw,48px);
+  overflow:hidden;
+  background:rgba(1,9,18,.79);
+  backdrop-filter:blur(11px) saturate(80%);
+  -webkit-backdrop-filter:blur(11px) saturate(80%);
+  animation: fxScrimIn .25s ease both;
+}
+.record-modal {
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  width:min(1030px,100%);
+  max-height:min(91dvh,960px);
+  min-height:0;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid #42677d;
+  color:var(--fx-ink);
+  background:radial-gradient(ellipse 70% 33% at 85% -10%,rgba(46,145,184,.16),transparent),linear-gradient(152deg,#112739,#0a1928 75%);
+  box-shadow:0 42px 140px rgba(0,0,0,.75),0 0 0 1px rgba(153,219,231,.045),inset 0 1px rgba(198,240,255,.085);
+  animation: fxModalIn .28s cubic-bezier(.17,.76,.24,1) both;
+}
+.record-modal-backdrop.is-closing { animation: fxScrimOut .2s ease both; }
+.record-modal.is-closing { animation: fxModalOut .2s ease both; }
+.record-modal-header { flex:none; padding:20px clamp(20px,3vw,34px) 0; border-bottom:1px solid #29485b; background:linear-gradient(180deg,rgba(23,51,69,.92),rgba(13,32,47,.98)); z-index:2; }
+.record-modal-topline { display:flex; justify-content:space-between; align-items:center; gap:14px; }
+.record-modal-identity { display:flex; align-items:center; gap:11px; min-width:0; flex-wrap:wrap; }
+.record-modal-classification { color:#9cbfd0; font:600 10px/1.5 'DM Mono',monospace; letter-spacing:.11em; }
+.record-modal-close { display:grid; place-items:center; flex:none; width:41px; height:41px; border:1px solid #3b596e; border-radius:11px; color:#cbdee9; background:#142c3c; transition:background .16s,border-color .16s,transform .16s; }
+.record-modal-close:hover { color:#fff; background:#245269; border-color:#85dbe8; transform:rotate(3deg); }
+.record-modal-header h2 { max-width:890px; margin:15px 0 13px; font:700 clamp(21px,2vw,30px)/1.32 'Manrope','Inter',sans-serif; letter-spacing:-.028em; color:#f4fbff; overflow-wrap:anywhere; }
+.record-modal-meta { display:flex; align-items:center; flex-wrap:wrap; gap:9px 13px; min-height:30px; }
+.record-modal-meta .type-tag { text-transform:none; font-size:11px; padding:5px 8px; }
+.record-modal-source-pill { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#e2be96; }
+.record-modal-source-pill.verified { color:#a9ebd0; }
+.record-modal-meta .completeness { font-size:11px; color:#b5cfdb; }
+.record-modal-section-nav { display:flex; gap:6px; margin-top:16px; overflow-x:auto; scrollbar-width:thin; }
+.record-modal-section-nav button { flex:none; background:transparent; border:0; border-bottom:2px solid transparent; padding:9px 11px 11px; color:#b9d2df; font-size:12px; font-weight:600; transition:color .2s,background .2s,border-color .2s; }
+.record-modal-section-nav button:hover,.record-modal-section-nav button:focus-visible { color:#e6fbff; border-color:#7ce2e9; background:rgba(67,162,185,.09); }
+.record-modal-scroll { flex:1 1 auto; min-height:0; overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; padding:clamp(18px,2.7vw,32px) clamp(20px,3vw,34px) 26px; scrollbar-color:#3a7088 #142b3b; scrollbar-width:thin; }
+.record-modal-scroll :is(#record-research,#record-conditions,#record-source) { scroll-margin-top:16px; }
+.record-modal-summary { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(240px,.85fr); gap:24px; align-items:stretch; margin-bottom:24px; }
+.record-modal-summary-copy { padding:4px 0; }
+.record-modal-summary-copy h3 { margin:8px 0 9px; color:#f0f8fc; font-size:20px; letter-spacing:-.02em; line-height:1.35; }
+.record-modal-summary-copy > p { margin:0 0 17px; max-width:58ch; color:#c4d9e7; font-size:14px; line-height:1.8; }
+.record-modal-summary-facts { display:flex; align-items:flex-start; gap:9px; flex-wrap:wrap; }
+.record-modal-summary-facts > span { display:inline-flex; align-items:center; gap:8px; max-width:100%; border:1px solid #36566a; border-radius:8px; background:#132d40; color:#d4e5ef; padding:8px 10px; font-size:12px; line-height:1.5; }
+.record-modal-summary-facts svg { color:#83dfed; flex:none; }
+.record-modal-diagram { display:flex; flex-direction:column; align-items:center; justify-content:space-between; min-height:160px; padding:17px 10px 14px; border:1px solid #355c72; border-radius:15px; background:radial-gradient(circle at 50% 35%,rgba(50,161,182,.15),transparent 62%),linear-gradient(145deg,#193c50,#0f2333); box-shadow:inset 0 1px rgba(179,239,248,.08); }
+.record-modal-diagram-caption { color:#a5d9e2; font:600 10px/1.4 'DM Mono',monospace; letter-spacing:.08em; text-align:center; }
+.record-modal-diagram-nodes { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; padding:11px 0 9px; color:#6aaabc; }
+.record-modal-diagram-nodes > span { display:grid; place-items:center; gap:8px; min-width:55px; color:#8de6ef; }
+.record-modal-diagram-nodes > span svg { display:grid; width:42px; height:42px; padding:10px; border:1px solid #4c8597; border-radius:50%; background:#1a475a; box-shadow:0 0 20px rgba(48,188,206,.12),inset 0 1px rgba(182,235,245,.11); }
+.record-modal-diagram-nodes small { font-size:11px; font-weight:600; color:#c7dee9; }
+.record-modal-diagram-foot { text-align:center; color:#afc7d7; font-size:10px; line-height:1.5; }
+.record-modal-columns { display:grid; grid-template-columns:minmax(0,1.17fr) minmax(300px,.83fr); gap:23px; align-items:start; }
+.record-modal-main-column { min-width:0; }
+.record-modal-section { border-top:1px solid #2c4b5e; padding:20px 0 24px; }
+.record-modal-section .eyebrow, .record-modal-panel .eyebrow { color:#9cdeec; font-size:11px; letter-spacing:.075em; margin-bottom:12px; }
+.record-modal-prose { margin:0; color:#e3edf3; font-size:15px; line-height:1.85; overflow-wrap:anywhere; }
+.record-modal-rows .detail-row { display:grid; grid-template-columns:125px minmax(0,1fr); align-items:start; gap:13px; padding:10px 0; border-bottom:1px solid rgba(78,105,121,.34); }
+.record-modal-rows .detail-row:last-child { border-bottom:0; }
+.record-modal-rows .detail-row > span { color:#aec7d5; font-size:12px; line-height:1.6; }
+.record-modal-rows .detail-row strong { color:#f0f6fb; font-size:13px; line-height:1.68; font-weight:540; overflow-wrap:anywhere; }
+.record-modal-side-column { display:grid; gap:14px; min-width:0; }
+.record-modal-panel { padding:18px 18px 19px; border-radius:13px; border:1px solid #33536a; background:#112b3d; box-shadow:inset 0 1px rgba(164,217,232,.045); }
+.record-modal-panel-heading { display:flex; gap:11px; align-items:flex-start; margin-bottom:14px; }
+.record-modal-panel-heading > svg { flex:none; color:#91e3ef; margin-top:3px; }
+.record-modal-panel-heading .eyebrow { margin-bottom:4px; }
+.record-modal-panel-heading h3 { margin:0; font-size:16px; letter-spacing:-.018em; }
+.record-modal-panel .tag-list { row-gap:8px; }
+.record-modal-condition-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin:0 0 13px; }
+.record-modal-condition { display:flex; flex-direction:column; min-width:0; gap:6px; padding:11px 9px; border:1px solid #365269; border-radius:10px; background:#0e2333; }
+.record-modal-condition.has-value { border-color:#43857e; background:#13352f; }
+.record-modal-condition-label { display:flex; gap:5px; flex-wrap:wrap; align-items:center; font-size:11px; font-weight:650; color:#cfe3ee; }
+.record-modal-condition-label svg { color:#8cdbeb; flex:none; }
+.record-modal-condition strong { color:#eaf5fa; font-size:12px; line-height:1.35; overflow-wrap:anywhere; }
+.record-modal-condition.is-missing strong { font-size:11px; font-weight:550; color:#d5c8b7; }
+.record-modal-condition small { color:#a0bece; line-height:1.35; font-size:10px; }
+.record-modal-data-caution { display:flex; align-items:flex-start; gap:8px; padding-bottom:14px; border-bottom:1px solid #345269; margin:0 0 6px; color:#d2bd9e; font-size:12px; line-height:1.6; }
+.record-modal-data-caution svg { flex:none; margin-top:2px; }
+.record-modal-value-basis { margin:9px 0 12px; font-size:12px; color:#c7d8e4; line-height:1.65; }
+.record-modal-value-basis strong { color:#b9e6ec; text-transform:capitalize; }
+.record-modal-panel .related-buttons button { min-height:37px; font-size:12px; transition:transform .16s,background .16s; }
+.record-modal-panel .related-buttons button:hover { background:#1c4b5d; transform:translateY(-2px); }
+.record-modal-citation { background:linear-gradient(145deg,#143846,#122b40); border-color:#3c7281; }
+.record-modal-citation > p { margin:10px 0; font-size:13px; color:#e1f0f4; line-height:1.7; }
+.record-modal-citation .inline-link { font-size:13px; line-height:1.5; margin:2px 0 8px; }
+.record-modal-citation .record-modal-citation-hint { margin:5px 0 12px; color:#b9d0dc; font-size:12px; line-height:1.72; }
+.record-modal-copy { display:inline-flex; align-items:center; gap:7px; border:1px solid #47758c; border-radius:8px; padding:9px 11px; color:#d7f4f7; background:#164056; font-size:12px; font-weight:650; transition:background .16s,border-color .16s; }
+.record-modal-copy:hover { background:#205570; border-color:#83ddea; }
+.record-modal-copy-message { margin:8px 0 0!important; color:#b0f0d4!important; font-size:12px!important; }
+.record-modal-footer { flex:none; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:13px clamp(20px,3vw,34px); border-top:1px solid #35536a; background:#0d2233; }
+.record-modal-footnote { display:flex; align-items:center; flex-wrap:wrap; gap:7px; color:#bfd1dd; max-width:57%; font-size:11px; line-height:1.5; }
+.record-modal-footnote svg { flex:none; color:#80cbd9; }
+.record-modal-foot-separator { color:#6b8ea0; }
+.record-modal-actions { flex:none; display:flex; gap:9px; align-items:center; }
+.record-modal-actions > button { min-height:40px; font-size:12px; }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+@keyframes fxScrimIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fxScrimOut { from { opacity:1; } to { opacity:0; } }
+@keyframes fxModalIn { from { opacity:0; transform:translateY(14px) scale(.982); } to { opacity:1; transform:translateY(0) scale(1); } }
+@keyframes fxModalOut { from { opacity:1; transform:translateY(0) scale(1); } to { opacity:0; transform:translateY(10px) scale(.985); } }
+
+/* Also applies outside the .app-shell, because the modal is portaled to document.body. */
+.record-modal-backdrop.reading-mode .record-modal-prose,
+.record-modal-backdrop.reading-mode .record-modal-summary-copy > p { font-size:17px; color:#f1f8fc; }
+.record-modal-backdrop.reading-mode .record-modal-rows .detail-row strong,
+.record-modal-backdrop.reading-mode .record-modal-rows .detail-row > span,
+.record-modal-backdrop.reading-mode .record-modal-citation > p { font-size:15px; color:#f0f7fa; }
+.record-modal-backdrop.reading-mode .record-modal-footer,
+.record-modal-backdrop.reading-mode .record-modal-panel { border-color:#4d7b91; }
+
+@media (max-width:920px) {
+  .evidence-trail-steps { gap:15px; }
+  .evidence-trail-step { gap:8px; }
+  .evidence-trail-arrow { display:none; }
+  .record-modal { width:min(760px,100%); }
+  .record-modal-summary { grid-template-columns:1fr; }
+  .record-modal-diagram { min-height:146px; }
+  .record-modal-columns { grid-template-columns:minmax(0,1fr); }
+  .record-modal-condition-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .record-modal-rows .detail-row { grid-template-columns:160px minmax(0,1fr); }
+  .record-modal-footnote { max-width:47%; }
+}
+@media (max-width:680px) {
+  .evidence-trail { padding:18px 16px; }
+  .evidence-trail-heading { align-items:flex-start; flex-direction:column; gap:8px; margin-bottom:17px; }
+  .evidence-trail-steps { grid-template-columns:1fr; gap:17px; }
+  .evidence-trail-illustration { width:46px; height:48px; }
+  .evidence-trail-symbol { width:39px; height:39px; }
+  .evidence-trail-copy strong { font-size:14px; }
+  .evidence-trail-copy p { font-size:12px; }
+  .record-modal-backdrop { padding:8px; align-items:center; }
+  .record-modal { width:100%; max-height:calc(100dvh - 16px); border-radius:14px; }
+  .record-modal-header { padding:15px 17px 0; }
+  .record-modal-header h2 { font-size:clamp(19px,5vw,24px); margin:11px 0; }
+  .record-modal-source-pill { font-size:11px; }
+  .record-modal-section-nav { margin-top:12px; }
+  .record-modal-section-nav button { font-size:11px; padding:8px 9px 10px; }
+  .record-modal-scroll { padding:20px 17px 24px; }
+  .record-modal-summary { gap:16px; }
+  .record-modal-summary-copy h3 { font-size:18px; }
+  .record-modal-summary-copy > p { font-size:13px; }
+  .record-modal-diagram { min-height:145px; }
+  .record-modal-rows .detail-row { grid-template-columns:105px minmax(0,1fr); }
+  .record-modal-condition-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .record-modal-condition { padding:9px 7px; }
+  .record-modal-condition strong { font-size:11px; }
+  .record-modal-condition-label { font-size:10px; }
+  .record-modal-footer { padding:12px 17px; gap:10px; align-items:flex-start; flex-direction:column; }
+  .record-modal-footnote { max-width:none; font-size:10px; }
+  .record-modal-actions { align-self:stretch; justify-content:flex-end; }
+  .record-modal-actions > button { flex:1; justify-content:center; min-height:43px; }
+}
+@media (max-width:380px) {
+  .record-modal-header { padding:12px 13px 0; }
+  .record-modal-scroll { padding:15px 13px 20px; }
+  .record-modal-panel { padding:14px 11px; }
+  .record-modal-condition-grid { grid-template-columns:1fr; }
+  .record-modal-condition { display:grid; grid-template-columns:1fr auto; align-items:center; }
+  .record-modal-condition small { grid-column:1/-1; }
+  .record-modal-rows .detail-row { grid-template-columns:90px minmax(0,1fr); gap:8px; }
+  .record-modal-footer { padding:11px 13px; }
+  .record-modal-identity { gap:7px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .record-modal, .record-modal-backdrop, .record-modal.is-closing, .record-modal-backdrop.is-closing { animation:none!important; }
+  .investigation-card:hover, .investigation-card:focus-within, .metric-card:hover, .pathway-card:hover, .record-modal-close:hover, .record-modal-panel .related-buttons button:hover { transform:none!important; }
+  .record-modal *, .evidence-trail *, .investigation-card, .metric-card, .pathway-card { transition:none!important; }
+}
