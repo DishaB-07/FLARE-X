@@ -293,8 +293,19 @@ async def answer_question(question: str, records: list[dict[str, Any]]) -> dict[
         )
         mode = "gemini"
         notice = "SI-generated summary of retrieved catalogue excerpts. Verify interpretations against the original source."
-    except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError):
-        answer, mode = fallback, "catalogue"
+   except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError) as exc:
+    import logging
+
+    response = getattr(exc, "response", None)
+
+    logging.warning(
+        "Gemini fallback: error=%s, status=%s, reason=%s",
+        type(exc).__name__,
+        getattr(response, "status_code", None),
+        str(exc) if isinstance(exc, ValueError) else "API or response error",
+    )
+
+    answer, mode = fallback, "catalogue"
         notice = "Gemini unavailable or its citations could not be validated; displaying source-based fallback."
     return {
         "answer": answer, "mode": mode, "evidence": evidence, "notice": notice,
