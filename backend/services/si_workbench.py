@@ -96,8 +96,9 @@ async def _optional_synthesis(question: str, selected: list[dict[str, Any]], fal
             api_key,
         )
         return generated, "gemini", "Gemini synthesized retrieved excerpts; citation and numeric-format checks passed, but scientific claims are not independently verified."
-    except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError):
-        return fallback, "catalogue", "Gemini unavailable or output did not pass checks; displaying catalogue-derived fallback."
+    except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError) as exc:
+        reason, explanation = assistant.gemini_failure(exc)
+        return fallback, "catalogue", f"{explanation} Showing the catalogue fallback (reason: {reason})."
 
 
 async def compare_selected(

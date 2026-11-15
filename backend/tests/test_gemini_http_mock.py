@@ -21,7 +21,7 @@ def test_gemini_json_rest_request_and_citation_guard(monkeypatch):
 
     class FakeClient:
         def __init__(self, timeout):
-            assert timeout == 18
+            assert timeout == 30
 
         async def __aenter__(self):
             return self

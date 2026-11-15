@@ -155,3 +155,7 @@ A GitHub Actions workflow is included to run Python tests plus `npm test` and `n
 - NASA PSI source: <https://psi.nasa.gov/>. Obtain authoritative details via an investigation's own “Cite this Investigation” control. FLARE-X does not imply NASA endorsement.
 
 See [NASA PSI review](docs/NASA_PSI_VERIFICATION_REPORT.md) and [submission draft](submission/SPACE_APPS_SUBMISSION_DRAFT.md). Publication, hosting, real-key Gemini and NASA submission are **not** completed by this archive.
+
+### November 2026 Gemini reliability update
+
+If Gemini is configured but the Research Studio still responds in `catalogue` mode, see **[Gemini reliability fix and live verification](docs/GEMINI_RELIABILITY_FIX.md)**. The response includes a safe `fallback_reason` that helps distinguish quota, model access, timeouts and validation failures. API keys remain server-side only.
