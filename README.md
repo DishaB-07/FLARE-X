@@ -1,96 +1,120 @@
-# FLARE-X — Space Fire Research Intelligence
+<div align="center">
 
-**NASA Space Apps Challenge 2026 · Flame in Freefall**  
-Existing React/FastAPI prototype, reorganized for maintainability without replacing its design, data, or API endpoints.
+# 🔥 FLARE-X
 
-FLARE-X helps users **search, compare, rank by research relevance, and inspect evidence** in a 24-record snapshot of NASA Physical Sciences Informatics (PSI) Combustion Science investigation catalogue metadata. The project includes an evidence-linked research assistant, transparent keyword ranking, evidence-coverage charts, citation review, a centered investigation-details modal, and a standalone, selectable five-stage evidence workflow with a lightweight Three.js data-current visualization on the Overview page.
+### Space Fire Research Intelligence
 
+**Search, compare, rank and inspect NASA microgravity combustion research — with every answer tied to its source.**
 
-## SI Research Studio (new)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-flare--x.onrender.com-ff5a1f?style=for-the-badge)](https://flare-x.onrender.com/)
+[![NASA Space Apps 2026](https://img.shields.io/badge/NASA_Space_Apps-2026-0b3d91?style=for-the-badge)](https://www.spaceappschallenge.org/)
+[![Challenge](https://img.shields.io/badge/Challenge-Flame_in_Freefall-c0392b?style=for-the-badge)](https://www.spaceappschallenge.org/)
 
-The Research Assistant now includes **three workflows**: evidence-linked Q&A, side-by-side **cross-investigation analysis**, and **research brief generation**. Gemini is **optional and server-side**; deterministic catalogue-based responses work without credentials. Results expose the actual mode (`gemini` or `catalogue`), the retrieved PSI evidence and citation/numeric guardrail limitations.
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-20232a?logo=react&logoColor=61dafb)
+![Vite](https://img.shields.io/badge/Vite-646cff?logo=vite&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-000000?logo=threedotjs&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ed?logo=docker&logoColor=white)
+![Gemini](https://img.shields.io/badge/Gemini-optional-8e75b2?logo=googlegemini&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-39_backend_·_14_frontend_passing-2ea44f)
 
-- New: `GET /api/assistant/status` (key configured, **not** proof the service is reachable)
-- New: `POST /api/assistant/compare` with `{"ids":["PSI-26","PSI-62"]}`
-- New: `POST /api/assistant/brief` with `{"theme":"detection"}`
-- Preserved: `POST /api/assistant/ask` and all existing endpoints
+**[▶ Open the live app](https://flare-x.onrender.com/)** · **[API docs](https://flare-x.onrender.com/docs)** · **[Architecture](docs/ARCHITECTURE.md)** · **[Source verification](docs/NASA_PSI_VERIFICATION_REPORT.md)**
 
-See **[SI Workbench documentation](docs/SI_WORKBENCH.md)** for architecture, Windows setup, API usage, data safeguards and live Gemini verification instructions. The catalogue is a 24-record snapshot, not full-text research or raw PSI measurements.
+</div>
 
-## Quick start (Windows PowerShell)
+---
 
-Open the extracted **`flare-x`** folder (the one containing `backend`, `frontend`, and `Dockerfile`) in VS Code.
+## 🛰️ The problem
 
-**Terminal 1 — API (project root):**
+Fire in a spacecraft behaves nothing like fire on Earth. Without gravity, flames form spheres, burn cooler, linger longer and can behave unpredictably. NASA has run decades of microgravity combustion investigations, but the findings are scattered across catalogue entries, and it is hard to answer simple questions quickly:
 
-```powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r backend\requirements-dev.txt
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000
+> *What has actually been studied? What is missing? Which investigations are relevant to **detecting**, **preventing** or **suppressing** a fire in space?*
+
+## ✨ What FLARE-X does
+
+FLARE-X turns a snapshot of **24 NASA Physical Sciences Informatics (PSI) Combustion Science investigations** into an interactive research workspace.
+
+| | Feature | What you get |
+|---|---|---|
+| 🔎 | **Investigation Explorer** | Search, filter and sort all 24 records; open any one in a detail modal |
+| ⚖️ | **Side-by-side Compare** | Compare 2–3 investigations on the same fields |
+| 📊 | **Research Intelligence** | Transparent, explainable keyword relevance ranking by research theme |
+| 🕳️ | **Evidence-gap view** | See exactly which fields were captured vs. *not available in the source* |
+| 🤖 | **SI Research Studio** | Evidence-linked Q&A, cross-investigation analysis and research-brief generation |
+| 📚 | **Citation audit** | Which DOIs were individually verified, and which still need checking |
+| 🌌 | **3D evidence flow** | Interactive Three.js visual of how data moves through the platform |
+
+## 🧠 How it works
+
+```mermaid
+flowchart LR
+    A[("NASA PSI catalogue<br/>24 records")] --> B["Normalise &<br/>validate metadata"]
+    B --> C["Explorer & Compare"]
+    B --> D["Explainable<br/>relevance ranking"]
+    B --> E["Evidence-gap<br/>analysis"]
+    C & D & E --> F["Retrieval-first<br/>Research Assistant"]
+    F -->|"optional, server-side"| G["Gemini"]
+    F -->|"always available"| H["Catalogue-grounded<br/>answer + citations"]
+    G --> I["Guardrails:<br/>citation & numeric checks"]
+    I --> J["Answer shown with<br/>real mode: gemini / catalogue"]
+    H --> J
 ```
 
-Visit <http://127.0.0.1:8000/health> (expected: `records_loaded: 24`) or <http://127.0.0.1:8000/docs>.
+### 🛡️ Honest by design
 
-**Terminal 2 — UI (project root first):**
+Most AI demos hide their limits. FLARE-X shows them.
 
-```powershell
+- **Retrieval first.** The assistant retrieves PSI evidence *before* answering, and shows that evidence next to the answer.
+- **Works without AI.** With no Gemini key, FLARE-X still answers from catalogue excerpts. Every response states which mode actually ran (`gemini` or `catalogue`).
+- **Guardrails.** Gemini output is checked against retrieved evidence for unsupported citations and invented numbers. If it fails, FLARE-X falls back safely and reports a `fallback_reason` (quota, model access, timeout or validation failure).
+- **Missing ≠ zero.** Unrecorded values read *"Not available in the provided source"*. Nothing is invented or filled in.
+- **Secrets stay server-side.** The Gemini key is never exposed to the browser.
+
+## 🚀 Try it
+
+### Option 1: Live
+
+👉 **https://flare-x.onrender.com/** (the free tier may take ~30 s to wake up on the first visit)
+
+### Option 2: Run locally
+
+**Prerequisites:** Python 3.12 · Node.js 22
+
+**Terminal 1 — API** (project root)
+
+```bash
+python -m venv .venv
+# Windows: .\.venv\Scripts\activate    macOS/Linux: source .venv/bin/activate
+pip install -r backend/requirements-dev.txt
+python -m pytest -q
+python -m uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Check <http://127.0.0.1:8000/health> → `{"status":"ok","records_loaded":24}`
+
+**Terminal 2 — UI**
+
+```bash
 cd frontend
 npm install
 npm test
-npm run build
 npm run dev
 ```
 
-Open the local URL printed by Vite, usually <http://localhost:5173>. Keep the API running in Terminal 1. Use **Node.js 22** and **Python 3.12** as the recommended versions.
+Open the URL Vite prints (usually <http://localhost:5173>). No `.env` file is needed for the default setup.
 
-> On organization-managed Windows machines, use `py -3.12 -m pip ...` or `.venv\Scripts\python.exe -m pip ...` rather than standalone `pip.exe` if Device Guard blocks it. Do not disable security controls.
+### Option 3: Docker (single origin)
 
-## Project structure
-
-```text
-flare-x/
-├── backend/
-│   ├── main.py                 # Small FastAPI composition root + built-frontend serving
-│   ├── api/routes/             # Stable HTTP endpoint handlers
-│   ├── core/config.py          # Backend environment, allowed origins, file paths
-│   ├── data_access/catalogue.py# Read-only JSON loading + validation
-│   ├── schemas/               # Pydantic request schemas
-│   ├── services/              # Catalogue, research, citations, assistant logic
-│   ├── assistant.py            # Legacy import compatibility
-│   ├── research.py             # Legacy import compatibility
-│   └── tests/                  # API, integration and integrity tests
-├── data/
-│   ├── investigations.json     # Original 24 records (unchanged)
-│   ├── schema.json             # Original JSON schema (unchanged)
-│   └── psi_citation_audit.json # Separate verification audit (unchanged)
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx             # Page composition and cross-page UI state
-│   │   ├── components/         # Layout, record modal, interactive workflow, shared UI
-│   │   ├── pages/              # Each top-level view
-│   │   ├── hooks/              # Catalogue, research, chat, navigation, comparison
-│   │   ├── services/api.js     # Shared fetch/error handling
-│   │   ├── utils/              # Missing-value formatting and derived chart data
-│   │   ├── config/constants.js # Public client constants
-│   │   ├── visuals/             # Lazy-loaded, resource-cleaned Three.js scene
-│   │   └── styles/             # Existing styles + dedicated workflow styling
-│   ├── tests/                  # Dependency-free Node utility/API tests
-│   └── vite.config.js          # React + Tailwind + configurable dev proxy
-├── docs/                       # Architecture, deployment, historical changes
-├── submission/                 # NASA submission draft and seven-slide PPTX draft
-├── .env.example                # Backend secret/config template
-├── Dockerfile                  # Production single-origin build
-└── render.yaml                 # Render blueprint (not yet deployed)
+```bash
+docker build -t flare-x .
+docker run -p 8000:8000 flare-x
 ```
 
-See [Architecture](docs/ARCHITECTURE.md) for data flow, page state, and extension instructions. See [Deployment](docs/DEPLOYMENT.md) for Docker/Render and acceptance tests.
+See [Deployment](docs/DEPLOYMENT.md) for Render and acceptance tests.
 
-## Configuration and secrets
+## 🔑 Optional: enable Gemini
 
-The **default local setup does not require any `.env` file**. The frontend calls the same-origin `/api` paths via Vite's dev proxy, so it can also work in a single-domain Docker deployment.
-
-To optionally enable Gemini, copy `.env.example` to `.env` in the **project root**, then add a key:
+Copy `.env.example` to `.env` in the project root:
 
 ```dotenv
 GEMINI_API_KEY=your_private_backend_key
@@ -98,64 +122,121 @@ GEMINI_MODEL=gemini-3.5-flash-lite
 FLAREX_CORS_ORIGINS=
 ```
 
-Without Gemini, the assistant responds using retrieved catalogue excerpts. Gemini is server-side only. The frontend's `frontend/.env.example` documents `VITE_API_BASE_URL` (for a separately hosted API) and `FLAREX_DEV_API_TARGET` (an optional Vite proxy target). **Never put API keys in `VITE_` variables, React source, Git commits, or public screenshots.** See [Environment](docs/ENVIRONMENT.md).
+> ⚠️ Never put API keys in `VITE_` variables, React source, commits or screenshots. See [Environment](docs/ENVIRONMENT.md).
 
-## API (all URLs preserved)
+If Gemini is configured but responses still say `catalogue`, check the `fallback_reason` field in the response. It tells you whether the cause was quota, model access, timeout or validation.
+
+## 🔌 API
+
+All endpoints are documented interactively at `/docs`.
 
 | Method | Route | Purpose |
 |---|---|---|
-| GET | `/health` | Status and count of loaded source records |
+| GET | `/health` | Status and number of loaded records |
 | GET | `/api/metadata` | Catalogue metadata and type counts |
-| GET | `/api/investigations?search=BASS&type=&topic=&sort=id` | Filter/search/sort catalogue |
-| GET | `/api/investigations/PSI-26` | Full local record |
-| GET | `/api/compare?ids=PSI-25&ids=PSI-26` | Compare 2–3 distinct IDs |
-| GET | `/api/relevance?theme=detection&limit=5` | Explainable textual relevance |
-| GET | `/api/evidence-coverage` | Captured vs unavailable metadata |
-| GET | `/api/research-brief?theme=prevention` | Research question and source IDs |
+| GET | `/api/investigations?search=&type=&topic=&sort=id` | Search, filter and sort |
+| GET | `/api/investigations/{id}` | Full record, e.g. `PSI-26` |
+| GET | `/api/compare?ids=PSI-25&ids=PSI-26` | Compare 2–3 distinct records |
+| GET | `/api/relevance?theme=detection&limit=5` | Explainable relevance ranking |
+| GET | `/api/evidence-coverage` | Captured vs. unavailable metadata |
+| GET | `/api/research-brief?theme=prevention` | Research question + source IDs |
 | GET | `/api/citations` | Verified subset + remaining citation status |
-| POST | `/api/assistant/ask` | Retrieval-first answer (`{"question":"..."}`) |
-| GET | `/api/assistant/status` | Optional Gemini key configuration status (not live connectivity) |
-| POST | `/api/assistant/compare` | Cited comparison of 2–3 selected PSI records |
-| POST | `/api/assistant/brief` | Evidence-linked brief from a research theme |
+| POST | `/api/assistant/ask` | Retrieval-first answer `{"question": "..."}` |
+| GET | `/api/assistant/status` | Whether a Gemini key is configured (not live connectivity) |
+| POST | `/api/assistant/compare` | Cited comparison `{"ids": ["PSI-26","PSI-62"]}` |
+| POST | `/api/assistant/brief` | Evidence-linked brief `{"theme": "detection"}` |
 
-Run the API, then open `/docs` for interactive request/response schemas. Validation errors use HTTP 422; missing IDs use 404; duplicate comparison IDs use 400. Sample PowerShell request:
+Example:
 
-```powershell
-Invoke-RestMethod -Uri http://127.0.0.1:8000/api/assistant/ask -Method Post `
-  -ContentType 'application/json' `
-  -Body '{"question":"What oxygen concentration is documented for PSI-26?"}'
+```bash
+curl -X POST https://flare-x.onrender.com/api/assistant/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question":"What oxygen concentration is documented for PSI-26?"}'
 ```
 
-## Interactive research workflow and 3D current
+Errors: `422` validation · `404` unknown ID · `400` duplicate comparison IDs.
 
-The Overview hero introduces the catalogue and has a **See how the research flows** link. The **workflow is a separate, full-width section** below the hero, not nested inside it. Its five stages are NASA PSI catalogue → structure metadata → explore/compare → research intelligence → evidence-linked assistant.
+## 🌌 Interactive 3D workflow
 
-Selecting a stage highlights the corresponding point in a Three.js animated current, updates a readable description, and provides a link to an existing page or NASA PSI. There is a motion toggle, a Next stage control, smooth scrolling, and a swipeable stage row on smaller screens. The original static orbit and “CONCEPTUAL 3D VIEW” label are removed.
+The Overview page has a five-stage selectable workflow:
 
-**Three.js** (`frontend/package.json`) is the only new dependency, loaded via a dynamic import when the workflow is visible. It uses a capped device-pixel ratio and a limited particle count. The scene pauses when off-screen, cleans up WebGL resources on unmount, respects reduced-motion preferences, and has a CSS-only fallback if WebGL cannot run. It conveys **software data movement only**, not a real combustion experiment or prediction.
+**NASA PSI catalogue → structure metadata → explore & compare → research intelligence → evidence-linked assistant**
 
-Code: `frontend/src/components/research/ResearchWorkflow.jsx`, `FlowCurrent3D.jsx`, `frontend/src/visuals/flowCurrentScene.js`, and `frontend/src/styles/workflow.css`. See [Data flow design](docs/THREEJS_DATA_FLOW.md).
+Selecting a stage highlights its point in an animated **Three.js** data current. It is built to be well behaved:
 
-## Testing and verification
+- Lazy-loaded; capped pixel ratio and particle count
+- Pauses when off-screen, and frees WebGL resources on unmount
+- Respects reduced-motion settings, and has a CSS-only fallback if WebGL is unavailable
 
-From project root, after installing Python dev dependencies: `py -3.12 -m pytest -q`. From `frontend`: `npm test` for pure-JavaScript API/formatting checks, `npm run build` for the actual React production build, and `npm run dev` for live browser testing.
+The visual shows **software data movement only**, not a real combustion simulation. See [Data flow design](docs/THREEJS_DATA_FLOW.md).
 
-**Latest verified results:** 27/27 backend Python tests; 12/12 frontend Node tests, including the new Three.js integration checks. The **React/Vite production build and real mobile/WebGL browser verification could not be completed here**, because the npm registry was unavailable. Source checks do not replace a real React build. Check them on your Windows machine before publishing or submitting.
+## 🗂️ Project structure
 
-A GitHub Actions workflow is included to run Python tests plus `npm test` and `npm run build` on a machine with internet/npm access. The workflow has not been run here.
+```text
+flare-x/
+├── backend/
+│   ├── main.py                  # FastAPI app + built-frontend serving
+│   ├── api/routes/              # HTTP endpoint handlers
+│   ├── core/config.py           # Environment, CORS, file paths
+│   ├── data_access/catalogue.py # Read-only JSON loading + validation
+│   ├── schemas/                 # Pydantic request schemas
+│   ├── services/                # Catalogue, research, citations, assistant logic
+│   └── tests/                   # API, integration and integrity tests
+├── data/
+│   ├── investigations.json      # 24 source records
+│   ├── schema.json              # JSON schema
+│   └── psi_citation_audit.json  # Citation verification audit
+├── frontend/
+│   ├── src/                     # pages, components, hooks, Three.js visuals, styles
+│   └── tests/                   # Node tests (API, workbench, 3D, workflow)
+├── docs/                        # Architecture, deployment, environment, 3D data flow
+├── Dockerfile                   # Production single-origin build
+└── render.yaml                  # Render blueprint
+```
 
-## Scientific and source boundaries
+More detail: [Architecture](docs/ARCHITECTURE.md) · [SI Workbench](docs/SI_WORKBENCH.md)
 
-- The checked-in data is a **user-provided 24-record PSI listing snapshot**: **19 Microgravity Investigations + 5 Ground Investigations**. It does not represent the live PSI search result count.
-- This is **catalogue metadata**, **not raw experimental measurements, full papers, or a spacecraft fire-risk model**. Truncated descriptions stay labelled as excerpts.
-- Ground investigations can include modelling or analysis; they are **not automatically direct spaceflight observations**.
-- Numerical conditions are shown only when recorded; missing values mean **“Not available in the provided source”**, not zero.
-- Research pathways and ranking are **SI-generated interpretations**, not NASA classifications, scientific-quality scores, or certified safety recommendations.
-- Only **six** individual PSI investigation titles/DOIs are separately marked as checked in `data/psi_citation_audit.json`; **18** still need individual investigation citation verification. Original DOI fields in `data/investigations.json` remain unchanged.
-- NASA PSI source: <https://psi.nasa.gov/>. Obtain authoritative details via an investigation's own “Cite this Investigation” control. FLARE-X does not imply NASA endorsement.
+## ✅ Quality
 
-See [NASA PSI review](docs/NASA_PSI_VERIFICATION_REPORT.md) and [submission draft](submission/SPACE_APPS_SUBMISSION_DRAFT.md). Publication, hosting, real-key Gemini and NASA submission are **not** completed by this archive.
+| Check | Result |
+|---|---|
+| Backend tests (`pytest`) | **39 passed** |
+| Frontend tests (`npm test`) | **14 / 14 passed** |
+| Production build (`npm run build`) | **Succeeds** |
+| Live deployment `/health` | **`records_loaded: 24`** |
+| CI | GitHub Actions runs backend tests, frontend tests and build on every push |
 
-### November 2026 Gemini reliability update
+## 🔬 Scientific & source boundaries
 
-If Gemini is configured but the Research Studio still responds in `catalogue` mode, see **[Gemini reliability fix and live verification](docs/GEMINI_RELIABILITY_FIX.md)**. The response includes a safe `fallback_reason` that helps distinguish quota, model access, timeouts and validation failures. API keys remain server-side only.
+We would rather be accurate than impressive.
+
+- **Data:** a 24-record snapshot (**19 microgravity + 5 ground investigations**) of PSI catalogue **metadata**. It is not the live PSI result count.
+- **Not** raw experimental measurements, full papers or a spacecraft fire-risk model.
+- Ground investigations may be modelling or analysis, not direct spaceflight observations.
+- Research pathways and rankings are **software-generated interpretations**, not NASA classifications, quality scores or safety recommendations.
+- **Citations:** 6 investigation titles/DOIs are individually verified in [`data/psi_citation_audit.json`](data/psi_citation_audit.json); **18 still need individual verification**. Original DOI fields are left unchanged. See the [verification report](docs/NASA_PSI_VERIFICATION_REPORT.md).
+- Authoritative details: <https://psi.nasa.gov/>. Use each investigation's own *"Cite this Investigation"* control.
+- FLARE-X is an independent project and does **not** imply NASA endorsement.
+
+## 🗺️ Roadmap
+
+- [ ] Verify the remaining 18 investigation citations against their PSI pages
+- [ ] Ingest full-text papers (RAG) alongside catalogue metadata
+- [ ] Expand beyond the 24-record snapshot to the full PSI combustion catalogue
+- [ ] Add unit-level numeric extraction with source-linked provenance
+
+## 👩‍🚀 Team
+
+Built for **NASA Space Apps Challenge 2026 — Flame in Freefall**.
+
+Made with Stellar_Minds07 by **Disha B** — [@DishaB-07](https://github.com/DishaB-07)
+
+---
+
+<div align="center">
+
+**[🚀 Launch FLARE-X](https://flare-x.onrender.com/)**
+
+*Data source: [NASA Physical Sciences Informatics](https://psi.nasa.gov/)*
+
+</div>
